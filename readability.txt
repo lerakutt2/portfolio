@@ -1,0 +1,76 @@
+#include <cs50.h>
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+#include <math.h>
+
+string texts;
+int letters(string text);
+int words(string text);
+int sent(string text);
+
+int main(void)
+{
+    texts = get_string("Text: ");
+    float letter = letters(texts);
+    float word = words(texts);
+    float sentance = sent(texts);
+    float L = letter / word * 100;
+    float S = sentance / word * 100;
+    float index = 0.0588 * L - 0.296 * S - 15.8;
+    if (index < 1)
+    {
+        printf("Before Grade 1\n");
+    }
+    else if (index > 16)
+    {
+        printf("Grade 16+\n");
+    }
+    else
+    {
+        printf("Grade %.0f\n", round(index));
+    }
+}
+
+int letters(string text)
+{
+    int letters = 0;
+    for (int i = 0, n = strlen(text); i < n; i++)
+    {
+        if ((text[i] >= 65 && text[i] <= 90) || (text[i] >= 97 && text[i] <= 122))
+        {
+            letters = letters + 1;
+        }
+    }
+    return letters;
+}
+
+int words(string text)
+{
+    int words = 0;
+    for (int i = 0, n = strlen(text); i < n; i++)
+    {
+        if (text[i] == 32)
+        {
+            words = words + 1;
+        }
+    }
+    if (words > 0)
+    {
+        words = words + 1;
+    }
+    return words;
+}
+
+int sent(string text)
+{
+    int sent = 0;
+    for (int i = 0, n = strlen(text); i < n; i++)
+    {
+        if (text[i] == 46 || text[i] == 63 || text[i] == 33)
+        {
+            sent = sent + 1;
+        }
+    }
+    return sent;
+}

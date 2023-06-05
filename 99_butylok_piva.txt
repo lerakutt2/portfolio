@@ -1,0 +1,28 @@
+lkfgj
+#include <stdio.h>
+#include <cs50.h>
+
+string but(int x);
+
+int main(void)
+{
+    int n = get_int("Сколько у вас бутылок пива? ");
+    for (int i = n; i >= 0; i--)
+        if (i != 0)
+            printf("%i %s пива на стене\n%i %s пива!\nВозьми одну, пусти по кругу!\n%i %s пива на стене!\n\n", i, but(i), i, but(i), i-1, but(i-1));
+        else
+            printf("Нет бутылок пива на стене!\nНет бутылок пива!\nПойди в магазин и купи ещё,\n%i %s пива на стене\n\n", n, but(n));
+}
+
+string but(int x)
+{
+    int y = x % 10;
+    if (y >= 5 || y == 0)
+        return "бутылок";
+    else if (!(x <= 14 && x >= 11) && y <= 4 && y >= 2)
+        return "бутылки";
+    else if (y == 1)
+        return "бутылка";
+    else
+        return "бутылок";
+}
