@@ -1,0 +1,103 @@
+second change
+#include <cs50.h>
+#include <stdio.h>
+#include <math.h>
+
+int main(void)
+{
+    int t = 0;
+    int o = 0;
+    long card = 0;
+    while (true)
+    {
+        card = get_long("Number: ");
+        if (card < pow(10, 12) || card >= pow(10, 16) || (card >= pow(10, 13) && card < pow(10, 14)))
+        {
+            printf("INVALID\n");
+        }
+        else
+        {
+            break;
+        }
+    }
+    long card1 = card;
+    for (int i = 1; i < 17; i++)
+    {
+        int carddigits = card1 % 10;
+        card1 = card1 / 10;
+        if (i % 2 == 0)
+        {
+            if (carddigits < 5)
+            {
+                o = 2 * carddigits + o;
+            }
+            else
+            {
+                int f = carddigits * 2;
+                o = f % 10 + 1 + o;
+            }
+        }
+        else
+        {
+            t = carddigits + t;
+        }
+    }
+    int x = t + o;
+    if (x % 10 == 0)
+    {
+        int q1 = card / pow(10, 13);
+        int q2 = card / pow(10, 15);
+        int q3 = card / pow(10, 16);
+        int y = card / pow(10, 12);
+        int y1 = card / pow(10, 11);
+        int y2 = card / pow(10, 13);
+        int y3 = card / pow(10, 14);
+        if (q1 == 0 && y == 4)
+        {
+            printf("VISA\n");
+        }
+        else if (q2 == 0 && (y2 == 34 || y2 == 37))
+        {
+            printf("AMEX\n");
+        }
+        else if (q3 == 0 && (y3 > 9))
+        {
+            switch (y3)
+            {
+                case 34:
+                case 37:
+                    printf("AMEX\n");
+                    break;
+                case 51:
+                case 52:
+                case 53:
+                case 54:
+                case 55:
+                    printf("MASTERCARD\n");
+                    break;
+                case 40:
+                case 41:
+                case 42:
+                case 43:
+                case 44:
+                case 45:
+                case 46:
+                case 47:
+                case 48:
+                case 49:
+                    printf("VISA\n");
+                    break;
+                default:
+                    printf("INVALID\n");
+            }
+        }
+        else
+        {
+            printf("INVALID\n");
+        }
+    }
+    else
+    {
+        printf("INVALID\n");
+    }
+}
